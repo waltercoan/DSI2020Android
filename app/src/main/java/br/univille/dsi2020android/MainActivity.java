@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import br.univille.dsi2020android.apiservice.APIConnection;
 import br.univille.dsi2020android.apiservice.APIService;
+import br.univille.dsi2020android.model.Paciente;
 import br.univille.dsi2020android.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,19 +27,17 @@ public class MainActivity extends AppCompatActivity {
 
         APIService service = APIConnection.getInstance().getService();
 
-        Usuario usuario = new Usuario();
-        usuario.setUsuario("admin");
-        usuario.setSenha("admin");
+        Call<Paciente> pacienteCall = service.getPacienteById(1);
 
-        Call<String> chamada = service.signin(usuario);
-        chamada.enqueue(new Callback<String>() {
+        pacienteCall.enqueue(new Callback<Paciente>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Toast.makeText(MainActivity.this,response.body().toString(), Toast.LENGTH_LONG).show();
+            public void onResponse(Call<Paciente> call, Response<Paciente> response) {
+                Paciente paciente = (Paciente)response.body();
+                Toast.makeText(MainActivity.this,paciente.getNome(), Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Paciente> call, Throwable t) {
                 System.out.println(t.getMessage().toString());
                 Toast.makeText(MainActivity.this,t.getMessage().toString(), Toast.LENGTH_LONG).show();
             }
