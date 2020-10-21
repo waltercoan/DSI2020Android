@@ -1,5 +1,7 @@
 package br.univille.dsi2020android.apiservice;
 
+import java.util.List;
+
 import br.univille.dsi2020android.model.Paciente;
 import br.univille.dsi2020android.model.Usuario;
 import retrofit2.Call;
@@ -13,4 +15,7 @@ public interface APIService {
     Call<String> signin(@Body Usuario usuario);
     @GET("pacientes/{id}")
     Call<Paciente> getPacienteById(@Path("id") long id);
+    @GET("pacientes")
+    Call<List<Paciente>> getAllPaciente();
+
 }

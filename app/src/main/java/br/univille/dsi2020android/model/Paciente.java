@@ -8,6 +8,9 @@ public class Paciente {
     private String sexo;
     private Date dataNascimento;
 
+    public String toString(){
+        return this.nome;
+    }
     public long getId() {
         return id;
     }
